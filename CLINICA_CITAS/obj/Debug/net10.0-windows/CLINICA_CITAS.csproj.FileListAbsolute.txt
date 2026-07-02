@@ -61,3 +61,4 @@ E:\Desarrollo de Escritorio\CLINICA_CITAS\CLINICA_CITAS\bin\Debug\net10.0-window
 E:\Desarrollo de Escritorio\CLINICA_CITAS\CLINICA_CITAS\bin\Debug\net10.0-windows\runtimes\win-x86\native\Microsoft.Data.SqlClient.SNI.dll
 E:\Desarrollo de Escritorio\CLINICA_CITAS\CLINICA_CITAS\obj\Debug\net10.0-windows\CLINICA_CITAS.csproj.AssemblyReference.cache
 E:\Desarrollo de Escritorio\CLINICA_CITAS\CLINICA_CITAS\obj\Debug\net10.0-windows\CLINICA_.183CEB73.Up2Date
+E:\Desarrollo de Escritorio\CLINICA_CITAS\CLINICA_CITAS\obj\Debug\net10.0-windows\CLINICA_CITAS.sourcelink.json

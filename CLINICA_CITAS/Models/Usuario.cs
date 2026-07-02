@@ -1,3 +1,5 @@
+using System;
+
 namespace CLINICA_CITAS.Models
 {
     public class Usuario
@@ -9,5 +11,12 @@ namespace CLINICA_CITAS.Models
         public string Rol { get; set; } = string.Empty;
         public string Estado { get; set; } = string.Empty;
         public bool Logueado { get; set; }
+        public string ContrasenaHash { get; set; } = string.Empty;
+        public DateTime? UltimoAcceso { get; set; }
+        public DateTime FechaRegistro { get; set; } = DateTime.Now;
+
+        // Propiedad de ayuda para enlace de datos
+        public string NombreCompleto => $"{Apellidos}, {Nombre}";
+        public string EstadoTexto => Estado;
     }
 }
