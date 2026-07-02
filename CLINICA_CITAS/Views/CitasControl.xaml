@@ -1,0 +1,116 @@
+<UserControl x:Class="CLINICA_CITAS.Views.CitasControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- List View -->
+        <Grid x:Name="GridCitaList" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Search and Actions -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Gestión de Citas" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="TxtBuscarCita" Tag="Buscar por paciente, médico o estado..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarCita_Click" VerticalAlignment="Center"/>
+                <Button Grid.Column="3" Content="➕ Crear Cita" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevaCita_Click" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Table -->
+            <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" x:Name="DgCitas" Style="{StaticResource ModernDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Paciente" Binding="{Binding PacienteNombreCompleto}" Width="160"/>
+                            <DataGridTextColumn Header="Médico" Binding="{Binding MedicoNombreCompleto}" Width="160"/>
+                            <DataGridTextColumn Header="Fecha / Hora" Binding="{Binding HoraInicio, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="120"/>
+                            <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}" Width="180"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="✔️ Confirmar" Style="{StaticResource SecondaryButtonStyle}" Foreground="#10B981" BorderBrush="#A7F3D0" Width="110" Height="36" Margin="0,0,8,0" Click="BtnConfirmarCita_Click"/>
+                        <Button Content="🩺 Atender" Style="{StaticResource SecondaryButtonStyle}" Foreground="#0B72E7" BorderBrush="#BFDBFE" Width="100" Height="36" Margin="0,0,8,0" Click="BtnAtenderCita_Click"/>
+                        <Button Content="❌ Cancelar" Style="{StaticResource SecondaryButtonStyle}" Foreground="#EF4444" BorderBrush="#FCA5A5" Width="100" Height="36" Click="BtnCancelarCita_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Form View -->
+        <Grid x:Name="GridCitaForm" Visibility="Collapsed">
+            <Border Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" Text="Crear Nueva Cita" FontSize="20" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,16"/>
+
+                    <StackPanel Grid.Row="1" VerticalAlignment="Top">
+                        <!-- Paciente -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Paciente *" Style="{StaticResource LabelTextStyle}"/>
+                            <ComboBox x:Name="CbCitaPaciente" Height="40" DisplayMemberPath="NombreCompleto" SelectedValuePath="ID_Paciente" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Médico -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Médico *" Style="{StaticResource LabelTextStyle}"/>
+                            <ComboBox x:Name="CbCitaMedico" Height="40" DisplayMemberPath="NombreCompleto" SelectedValuePath="ID_Medico" VerticalContentAlignment="Center"/>
+                        </StackPanel>
+
+                        <!-- Date and time -->
+                        <Grid Margin="0,0,0,16">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                <TextBlock Text="Fecha *" Style="{StaticResource LabelTextStyle}"/>
+                                <DatePicker x:Name="DpCitaFecha" Height="40" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="1" Margin="8,0,0,0">
+                                <TextBlock Text="Hora (HH:mm) *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtCitaHora" Tag="Ej: 09:30" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <!-- Motivo -->
+                        <StackPanel Margin="0,0,0,16">
+                            <TextBlock Text="Motivo de Consulta *" Style="{StaticResource LabelTextStyle}"/>
+                            <TextBox x:Name="TxtCitaMotivo" Tag="Ingrese el motivo detallado de la cita" Style="{StaticResource ModernTextBox}" Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Width="100" Height="40" Margin="0,0,12,0" Click="BtnCancelarCitaForm_Click"/>
+                        <Button Content="Guardar Cita" Style="{StaticResource PrimaryButtonStyle}" Width="150" Height="40" Click="BtnGuardarCita_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

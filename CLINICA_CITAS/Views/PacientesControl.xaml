@@ -1,0 +1,146 @@
+<UserControl x:Class="CLINICA_CITAS.Views.PacientesControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- List View -->
+        <Grid x:Name="GridPacienteList" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Search and Actions -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Gestión de Pacientes" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="TxtBuscarPaciente" Tag="Buscar por nombre, apellidos o doc..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarPaciente_Click" VerticalAlignment="Center"/>
+                <Button Grid.Column="3" Content="➕ Registrar Paciente" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevoPaciente_Click" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Table -->
+            <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" x:Name="DgPacientes" Style="{StaticResource ModernDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Nº Documento" Binding="{Binding NumeroDoc}" Width="110"/>
+                            <DataGridTextColumn Header="Nombres" Binding="{Binding Nombre}" Width="130"/>
+                            <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="160"/>
+                            <DataGridTextColumn Header="Teléfono" Binding="{Binding Telefono}" Width="100"/>
+                            <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="160"/>
+                            <DataGridTextColumn Header="Sexo" Binding="{Binding Sexo}" Width="60"/>
+                            <DataGridTextColumn Header="Estado" Binding="{Binding EstadoTexto}" Width="80"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="✏️ Editar Paciente" Style="{StaticResource SecondaryButtonStyle}" Width="140" Height="36" Margin="0,0,8,0" Click="BtnEditarPaciente_Click"/>
+                        <Button Content="🏥 Dar de Alta" Style="{StaticResource SecondaryButtonStyle}" Foreground="#10B981" BorderBrush="#A7F3D0" Width="120" Height="36" Click="BtnDarAltaPaciente_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Form View -->
+        <Grid x:Name="GridPacienteForm" Visibility="Collapsed">
+            <Border Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" x:Name="LblTituloFormPaciente" Text="Registrar Paciente" FontSize="20" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,16"/>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Nombres *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacNombre" Tag="Ej. Juan" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Apellidos *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacApellidos" Tag="Ej. Pérez" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Tipo Documento *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="CbPacTipoDoc" Height="40" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="DNI" IsSelected="True"/>
+                                    <ComboBoxItem Content="Pasaporte"/>
+                                    <ComboBoxItem Content="Carnet Extranjería"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Número Documento *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacNumeroDoc" Tag="Ej. 12345678" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Sexo *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="CbPacSexo" Height="40" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="Masculino" Tag="M" IsSelected="True"/>
+                                    <ComboBoxItem Content="Femenino" Tag="F"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Fecha de Nacimiento" Style="{StaticResource LabelTextStyle}"/>
+                                <DatePicker x:Name="DpPacFechaNacimiento" Height="40" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Teléfono *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacTelefono" Tag="Ej. 987654321" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Correo Electrónico" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacCorreo" Tag="Ej. juan.perez@email.com" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Dirección *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtPacDireccion" Tag="Ej. Av. Larco 123" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Margin="8,16,0,12" VerticalAlignment="Center">
+                                <CheckBox x:Name="ChkPacEstado" Content="Paciente Activo (En atención)" IsChecked="True" FontSize="14" FontWeight="SemiBold"/>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Width="100" Height="40" Margin="0,0,12,0" Click="BtnCancelarPacForm_Click"/>
+                        <Button Content="Guardar Paciente" Style="{StaticResource PrimaryButtonStyle}" Width="150" Height="40" Click="BtnGuardarPaciente_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

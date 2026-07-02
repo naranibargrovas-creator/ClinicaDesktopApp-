@@ -1,0 +1,152 @@
+<UserControl x:Class="CLINICA_CITAS.Views.MedicosControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <!-- List View -->
+        <Grid x:Name="GridMedicoList" Visibility="Visible">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Search and Actions -->
+            <Grid Grid.Row="0" Margin="0,0,0,16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBlock Grid.Column="0" Text="Gestión de Médicos" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
+                <TextBox Grid.Column="1" x:Name="TxtBuscarMedico" Tag="Buscar por nombre, colegiatura o doc..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarMedico_Click" VerticalAlignment="Center"/>
+                <Button Grid.Column="3" Content="➕ Registrar Médico" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevoMedico_Click" VerticalAlignment="Center"/>
+            </Grid>
+
+            <!-- Table -->
+            <Border Grid.Row="1" Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="12">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Grid.Row="0" x:Name="DgMedicos" Style="{StaticResource ModernDataGrid}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Colegiatura" Binding="{Binding Colegiatura}" Width="100"/>
+                            <DataGridTextColumn Header="Nombres" Binding="{Binding Nombre}" Width="130"/>
+                            <DataGridTextColumn Header="Apellidos" Binding="{Binding Apellidos}" Width="160"/>
+                            <DataGridTextColumn Header="Horario" Binding="{Binding DisponibilidadHorario}" Width="110"/>
+                            <DataGridTextColumn Header="Correo" Binding="{Binding Correo}" Width="170"/>
+                            <DataGridTextColumn Header="Documento" Binding="{Binding NumeroDoc}" Width="100"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,12,0,0">
+                        <Button Content="✏️ Editar Médico" Style="{StaticResource SecondaryButtonStyle}" Width="140" Height="36" Margin="0,0,8,0" Click="BtnEditarMedico_Click"/>
+                        <Button Content="🗑️ Eliminar Médico" Style="{StaticResource SecondaryButtonStyle}" Foreground="#EF4444" BorderBrush="#FCA5A5" Width="140" Height="36" Click="BtnEliminarMedico_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <!-- Form View -->
+        <Grid x:Name="GridMedicoForm" Visibility="Collapsed">
+            <Border Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="24">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Grid.Row="0" x:Name="LblTituloFormMedico" Text="Registrar Médico" FontSize="20" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,16"/>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,0,0,16">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Nombres *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedNombre" Tag="Ej. Luis" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="0" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Apellidos *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedApellidos" Tag="Ej. Vargas" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Tipo Documento *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="CbMedTipoDoc" Height="40" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="DNI" IsSelected="True"/>
+                                    <ComboBoxItem Content="Pasaporte"/>
+                                </ComboBox>
+                            </StackPanel>
+                            <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Número Documento *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedNumeroDoc" Tag="Ej. 87654321" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Colegiatura *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedColegiatura" Tag="Ej. CMP-12345" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="2" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Disponibilidad Horario *" Style="{StaticResource LabelTextStyle}"/>
+                                <ComboBox x:Name="CbMedHorario" Height="40" VerticalContentAlignment="Center">
+                                    <ComboBoxItem Content="Mañana (08:00 - 13:00)" IsSelected="True"/>
+                                    <ComboBoxItem Content="Tarde (14:00 - 19:00)"/>
+                                    <ComboBoxItem Content="Completo (08:00 - 17:00)"/>
+                                </ComboBox>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Apodo / Nombre de Usuario *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedApodo" Tag="Ej. drvargas" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="3" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Contraseña *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedContrasena" Tag="Ej. 123" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Correo Electrónico *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedCorreo" Tag="Ej. medico@clinica.com" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+                            <StackPanel Grid.Row="4" Grid.Column="1" Margin="8,0,0,12">
+                                <TextBlock Text="Dirección *" Style="{StaticResource LabelTextStyle}"/>
+                                <TextBox x:Name="TxtMedDireccion" Tag="Ej. Av. Aviación 456" Style="{StaticResource ModernTextBox}" Height="40"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,0,8,12">
+                                <TextBlock Text="Fecha de Nacimiento" Style="{StaticResource LabelTextStyle}"/>
+                                <DatePicker x:Name="DpMedFechaNacimiento" Height="40" VerticalContentAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Cancelar" Style="{StaticResource SecondaryButtonStyle}" Width="100" Height="40" Margin="0,0,12,0" Click="BtnCancelarMedForm_Click"/>
+                        <Button Content="Guardar Médico" Style="{StaticResource PrimaryButtonStyle}" Width="150" Height="40" Click="BtnGuardarMedico_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>
