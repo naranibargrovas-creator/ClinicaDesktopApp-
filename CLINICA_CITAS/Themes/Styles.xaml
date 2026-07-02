@@ -49,27 +49,29 @@
         <Setter Property="FontSize" Value="15"/>
         <Setter Property="FontFamily" Value="Segoe UI, Inter, Arial"/>
         <Setter Property="SelectionBrush" Value="{StaticResource PrimaryBlueBrush}"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="TextBox">
-                    <Grid>
-                        <Border x:Name="Border"
-                                Background="{TemplateBinding Background}"
-                                BorderBrush="{TemplateBinding BorderBrush}"
-                                BorderThickness="{TemplateBinding BorderThickness}"
-                                CornerRadius="8"
-                                SnapsToDevicePixels="True">
-                            <Grid Margin="{TemplateBinding Padding}">
-                                <ScrollViewer x:Name="PART_ContentHost" Focusable="false" VerticalAlignment="Center"/>
-                                <TextBlock x:Name="Placeholder"
-                                           Text="{TemplateBinding Tag}"
-                                           Foreground="#94A3B8"
-                                           VerticalAlignment="Center"
-                                           IsHitTestVisible="False"
-                                           Visibility="Collapsed"/>
-                            </Grid>
-                        </Border>
-                    </Grid>
+                    <Border x:Name="Border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            CornerRadius="8"
+                            SnapsToDevicePixels="True">
+                        <Grid>
+                            <ScrollViewer x:Name="PART_ContentHost"
+                                        Margin="{TemplateBinding Padding}"
+                                        VerticalAlignment="Center"/>
+                            <TextBlock x:Name="Placeholder"
+                                       Text="{TemplateBinding Tag}"
+                                       Foreground="#94A3B8"
+                                       Margin="14,12,14,12"
+                                       VerticalAlignment="Center"
+                                       IsHitTestVisible="False"
+                                       Visibility="Collapsed"/>
+                        </Grid>
+                    </Border>
                     <ControlTemplate.Triggers>
                         <MultiTrigger>
                             <MultiTrigger.Conditions>

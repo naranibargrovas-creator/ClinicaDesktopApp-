@@ -192,7 +192,7 @@
                     </Border>
 
                     <!-- CONTENEDOR PRINCIPAL DE PANELES -->
-                    <ContentControl Grid.Column="1" x:Name="MainContent"/>
+                    <ContentControl Grid.Column="1" x:Name="MainContent" FocusManager.IsFocusScope="False"/>
                 </Grid>
             </Grid>
         </Border>
