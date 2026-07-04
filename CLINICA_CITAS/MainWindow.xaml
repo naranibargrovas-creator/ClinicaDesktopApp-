@@ -134,6 +134,7 @@
                             CornerRadius="12" 
                             BorderBrush="#E5E7EB" 
                             BorderThickness="1"
+                            
                             Margin="0,0,16,0">
                         <Grid Margin="16">
                             <Grid.RowDefinitions>

@@ -14,7 +14,7 @@
         <!-- Welcome card -->
         <Border Grid.Row="0" Background="#FFFFFF" CornerRadius="12" BorderBrush="#E5E7EB" BorderThickness="1" Padding="24" Margin="0,0,0,16">
             <StackPanel>
-                <TextBlock Text="🎉 ¡Inicio de Sesión Exitoso!" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,8"/>
+                <TextBlock Text="¡Inicio de Sesión Exitoso!" FontSize="22" FontWeight="Bold" Foreground="#1E293B" Margin="0,0,0,8"/>
                 <TextBlock x:Name="TxtWelcomeMsg" Text="Hola Usuario, bienvenido de vuelta al sistema de gestión de citas." FontSize="14" Foreground="#64748B"/>
             </StackPanel>
         </Border>

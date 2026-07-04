@@ -29,7 +29,18 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Gestión de Citas" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" x:Name="TxtBuscarCita" Tag="Buscar por paciente, médico o estado..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <!--<TextBox Grid.Column="1" x:Name="TxtBuscarCita" Tag="Buscar por paciente, médico o estado..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>-->
+                <TextBox x:Name="TxtBuscarCita" 
+                     Tag="Buscar por paciente, médico o estado..." 
+                     Height="40"
+                     Background="#FFFFFF"
+                     Foreground="#1E293B"
+                     BorderBrush="#0B72E7"
+                     BorderThickness="2"
+                     Padding="10,2"
+                     FontSize="15"
+                     VerticalContentAlignment="Center"
+                     CaretBrush="#0B72E7"/>
                 <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarCita_Click" VerticalAlignment="Center"/>
                 <Button Grid.Column="3" Content="➕ Crear Cita" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevaCita_Click" VerticalAlignment="Center"/>
             </Grid>
@@ -100,14 +111,36 @@
 
                             <StackPanel Grid.Column="1" Margin="8,0,0,0">
                                 <TextBlock Text="Hora (HH:mm) *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtCitaHora" Tag="Ej: 09:30" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtCitaHora" Tag="Ej: 09:30" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtCitaHora" 
+                                     Tag="Ej: 09:30" 
+                                     Height="40"
+                                     Background="#FFFFFF"
+                                     Foreground="#1E293B"
+                                     BorderBrush="#0B72E7"
+                                     BorderThickness="2"
+                                     Padding="10,2"
+                                     FontSize="15"
+                                     VerticalContentAlignment="Center"
+                                     CaretBrush="#0B72E7"/>
                             </StackPanel>
                         </Grid>
 
                         <!-- Motivo -->
                         <StackPanel Margin="0,0,0,16">
                             <TextBlock Text="Motivo de Consulta *" Style="{StaticResource LabelTextStyle}"/>
-                            <TextBox x:Name="TxtCitaMotivo" Tag="Ingrese el motivo detallado de la cita" Style="{StaticResource ModernTextBox}" Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>
+                            <!--<TextBox x:Name="TxtCitaMotivo" Tag="Ingrese el motivo detallado de la cita" Style="{StaticResource ModernTextBox}" Height="80" TextWrapping="Wrap" AcceptsReturn="True"/>-->
+                            <TextBox x:Name="TxtCitaMotivo" 
+                                 Tag="Ingrese el motivo detallado de la cita" 
+                                 Height="40"
+                                 Background="#FFFFFF"
+                                 Foreground="#1E293B"
+                                 BorderBrush="#0B72E7"
+                                 BorderThickness="2"
+                                 Padding="10,2"
+                                 FontSize="15"
+                                 VerticalContentAlignment="Center"
+                                 CaretBrush="#0B72E7"/>
                         </StackPanel>
                     </StackPanel>
 

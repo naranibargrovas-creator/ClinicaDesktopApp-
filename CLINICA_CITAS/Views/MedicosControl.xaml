@@ -29,7 +29,18 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Gestión de Médicos" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" x:Name="TxtBuscarMedico" Tag="Buscar por nombre, colegiatura o doc..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <!--<TextBox Grid.Column="1" x:Name="TxtBuscarMedico" Tag="Buscar por nombre, colegiatura o doc..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>-->
+                <TextBox x:Name="TxtBuscarMedico" 
+                          Tag="Buscar por nombre, colegiatura o doc..." 
+                          Height="40"
+                          Background="#FFFFFF"
+                          Foreground="#1E293B"
+                          BorderBrush="#0B72E7"
+                          BorderThickness="2"
+                          Padding="10,2"
+                          FontSize="15"
+                          VerticalContentAlignment="Center"
+                          CaretBrush="#0B72E7"/>
                 <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarMedico_Click" VerticalAlignment="Center"/>
                 <Button Grid.Column="3" Content="➕ Registrar Médico" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevoMedico_Click" VerticalAlignment="Center"/>
             </Grid>
@@ -90,11 +101,34 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Nombres *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedNombre" Tag="Ej. Luis" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedNombre" Tag="Ej. Luis" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedNombre" 
+                                          Tag="Ej. Luis" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
+                                
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Apellidos *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedApellidos" Tag="Ej. Vargas" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedApellidos" Tag="Ej. Vargas" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedApellidos" 
+                                          Tag="Ej. Vargas" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,12">
@@ -106,12 +140,34 @@
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Número Documento *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedNumeroDoc" Tag="Ej. 87654321" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedNumeroDoc" Tag="Ej. 87654321" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedNumeroDoc" 
+                                          Tag="Ej. 87654321" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Colegiatura *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedColegiatura" Tag="Ej. CMP-12345" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedColegiatura" Tag="Ej. CMP-12345" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedColegiatura" 
+                                           Tag="Ej. CMP-12345" 
+                                           Height="40"
+                                           Background="#FFFFFF"
+                                           Foreground="#1E293B"
+                                           BorderBrush="#0B72E7"
+                                           BorderThickness="2"
+                                           Padding="10,2"
+                                           FontSize="15"
+                                           VerticalContentAlignment="Center"
+                                           CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Disponibilidad Horario *" Style="{StaticResource LabelTextStyle}"/>
@@ -124,20 +180,64 @@
 
                             <StackPanel Grid.Row="3" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Apodo / Nombre de Usuario *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedApodo" Tag="Ej. drvargas" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedApodo" Tag="Ej. drvargas" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedApodo" 
+                                            Tag="Ej. drvargas" 
+                                            Height="40"
+                                            Background="#FFFFFF"
+                                            Foreground="#1E293B"
+                                            BorderBrush="#0B72E7"
+                                            BorderThickness="2"
+                                            Padding="10,2"
+                                            FontSize="15"
+                                            VerticalContentAlignment="Center"
+                                            CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="3" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Contraseña *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedContrasena" Tag="Ej. 123" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedContrasena" Tag="Ej. 123" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedContrasena" 
+                                        Tag="Ej. 123" 
+                                        Height="40"
+                                        Background="#FFFFFF"
+                                        Foreground="#1E293B"
+                                        BorderBrush="#0B72E7"
+                                        BorderThickness="2"
+                                        Padding="10,2"
+                                        FontSize="15"
+                                        VerticalContentAlignment="Center"
+                                        CaretBrush="#0B72E7"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Correo Electrónico *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedCorreo" Tag="Ej. medico@clinica.com" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedCorreo" Tag="Ej. medico@clinica.com" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedCorreo" 
+                                          Tag="Ej. medico@clinica.com" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="4" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Dirección *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtMedDireccion" Tag="Ej. Av. Aviación 456" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtMedDireccion" Tag="Ej. Av. Aviación 456" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtMedDireccion" 
+                                          Tag="Ej. Av. Aviación 456" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="5" Grid.Column="0" Margin="0,0,8,12">
