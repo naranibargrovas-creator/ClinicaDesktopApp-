@@ -29,7 +29,19 @@
                 </Grid.ColumnDefinitions>
 
                 <TextBlock Grid.Column="0" Text="Administrar Usuarios" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
-                <TextBox Grid.Column="1" x:Name="TxtBuscarUsuario" Tag="Buscar por nombre, apellidos o correo..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>
+                <!--<TextBox Grid.Column="1" x:Name="TxtBuscarUsuario" Tag="Buscar por nombre, apellidos o correo..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>-->
+                <TextBox Grid.Column="1"
+                         x:Name="TxtBuscarUsuario" 
+                         Tag="Buscar por nombre, apellidos o correo..." 
+                         Height="40"
+                         Background="#FFFFFF"
+                         Foreground="#1E293B"
+                         BorderBrush="#0B72E7"
+                         BorderThickness="2"
+                         Padding="10,2"
+                         FontSize="15"
+                         VerticalContentAlignment="Center"
+                         CaretBrush="#0B72E7"/>
                 <Button Grid.Column="2" Content="🔍 Buscar" Style="{StaticResource SecondaryButtonStyle}" Width="90" Height="40" Margin="0,0,8,0" Click="BtnBuscarUsuario_Click" VerticalAlignment="Center"/>
                 <Button Grid.Column="3" Content="➕ Registrar Usuario" Style="{StaticResource PrimaryButtonStyle}" Height="40" Padding="16,0,16,0" Click="BtnNuevoUsuario_Click" VerticalAlignment="Center"/>
             </Grid>
@@ -86,16 +98,50 @@
 
                             <StackPanel Grid.Row="0" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Nombres *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtUsuNombre" Tag="Ej. Ana" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtUsuNombre" Tag="Ej. Ana" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox 
+                                          x:Name="TxtUsuNombre" 
+                                          Tag="Ej. Ana" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Apellidos *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtUsuApellidos" Tag="Ej. Gómez" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtUsuApellidos" Tag="Ej. Gómez" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtUsuApellidos" 
+                                          Tag="Ej. Gómez" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Correo Electrónico *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtUsuCorreo" Tag="Ej. usuario@clinica.com" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtUsuCorreo" Tag="Ej. usuario@clinica.com" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtUsuCorreo" 
+                                          Tag="Ej. usuario@clinica.com" 
+                                          Height="40"
+                                          Background="#FFFFFF"
+                                          Foreground="#1E293B"
+                                          BorderBrush="#0B72E7"
+                                          BorderThickness="2"
+                                          Padding="10,2"
+                                          FontSize="15"
+                                          VerticalContentAlignment="Center"
+                                          CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="1" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Rol *" Style="{StaticResource LabelTextStyle}"/>
@@ -108,7 +154,18 @@
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,12">
                                 <TextBlock Text="Contraseña *" Style="{StaticResource LabelTextStyle}"/>
-                                <TextBox x:Name="TxtUsuContrasena" Tag="Ej. 123456" Style="{StaticResource ModernTextBox}" Height="40"/>
+                                <!--<TextBox x:Name="TxtUsuContrasena" Tag="Ej. 123456" Style="{StaticResource ModernTextBox}" Height="40"/>-->
+                                <TextBox x:Name="TxtUsuContrasena" 
+                                        Tag="Ej. 123456" 
+                                        Height="40"
+                                        Background="#FFFFFF"
+                                        Foreground="#1E293B"
+                                        BorderBrush="#0B72E7"
+                                        BorderThickness="2"
+                                        Padding="10,2"
+                                        FontSize="15"
+                                        VerticalContentAlignment="Center"
+                                        CaretBrush="#0B72E7"/>
                             </StackPanel>
                             <StackPanel Grid.Row="2" Grid.Column="1" Margin="8,0,0,12" VerticalAlignment="Center">
                                 <TextBlock Text="Estado" Style="{StaticResource LabelTextStyle}"/>

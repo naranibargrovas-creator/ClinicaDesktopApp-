@@ -30,7 +30,8 @@
 
                 <TextBlock Grid.Column="0" Text="Gestión de Citas" FontSize="22" FontWeight="Bold" Foreground="#1E293B" VerticalAlignment="Center"/>
                 <!--<TextBox Grid.Column="1" x:Name="TxtBuscarCita" Tag="Buscar por paciente, médico o estado..." Style="{StaticResource ModernTextBox}" Height="40" Margin="16,0,8,0" VerticalAlignment="Center"/>-->
-                <TextBox x:Name="TxtBuscarCita" 
+                <TextBox Grid.Column="1"
+                    x:Name="TxtBuscarCita" 
                      Tag="Buscar por paciente, médico o estado..." 
                      Height="40"
                      Background="#FFFFFF"
