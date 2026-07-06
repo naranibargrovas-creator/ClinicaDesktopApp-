@@ -19,5 +19,11 @@ namespace CLINICA_CITAS.Models
 
         // Propiedad de ayuda para enlace de datos
         public string NombreCompleto => $"{Apellidos}, {Nombre}";
+
+        public string Especialidades { get; set; } = string.Empty;
+
+        public string NombreConEspecialidad => string.IsNullOrEmpty(Especialidades)
+            ? $"{Nombre} {Apellidos}"
+            : $"{Nombre} {Apellidos} ({Especialidades})";
     }
 }

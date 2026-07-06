@@ -11,7 +11,8 @@ namespace CLINICA_CITAS.Views
         private readonly CitaRepository _citaRepository;
         private readonly PacienteRepository _pacienteRepository;
         private readonly MedicoRepository _medicoRepository;
-        private readonly Usuario _usuario;
+        private readonly EspecialidadRepository _especialidadRepository;
+        private readonly UsuarioAutenticado _usuario;
 
         public CitasControl()
         {
@@ -19,16 +20,19 @@ namespace CLINICA_CITAS.Views
             _citaRepository = new CitaRepository();
             _pacienteRepository = new PacienteRepository();
             _medicoRepository = new MedicoRepository();
-            _usuario = new Usuario();
+            _especialidadRepository = new EspecialidadRepository();
+            _usuario = new UsuarioAutenticado();
         }
 
-        public CitasControl(Usuario usuario, CitaRepository citaRepository, PacienteRepository pacienteRepository, MedicoRepository medicoRepository)
+        public CitasControl(UsuarioAutenticado usuario, CitaRepository citaRepository, PacienteRepository pacienteRepository, MedicoRepository medicoRepository)
         {
             InitializeComponent();
             _usuario = usuario;
             _citaRepository = citaRepository;
             _pacienteRepository = pacienteRepository;
             _medicoRepository = medicoRepository;
+            _especialidadRepository = new EspecialidadRepository();
+            _citaRepository.ActualizarEspecialidadesCitasExistentes();
             CargarListadoCitas();
         }
 
@@ -72,10 +76,12 @@ namespace CLINICA_CITAS.Views
             {
                 // Cargar listas en combo
                 CbCitaPaciente.ItemsSource = _pacienteRepository.ListarTodos();
-                CbCitaMedico.ItemsSource = _medicoRepository.ListarTodos();
+                CbCitaEspecialidad.ItemsSource = _especialidadRepository.ListarActivos();
+                CbCitaMedico.ItemsSource = null;
 
                 // Limpiar campos
                 CbCitaPaciente.SelectedIndex = -1;
+                CbCitaEspecialidad.SelectedIndex = -1;
                 CbCitaMedico.SelectedIndex = -1;
                 DpCitaFecha.SelectedDate = DateTime.Today;
                 TxtCitaHora.Text = DateTime.Now.ToString("HH:mm");
@@ -90,6 +96,26 @@ namespace CLINICA_CITAS.Views
             }
         }
 
+        private void CbCitaEspecialidad_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            try
+            {
+                if (CbCitaEspecialidad.SelectedValue is int idEspecialidad)
+                {
+                    CbCitaMedico.ItemsSource = _medicoRepository.ListarPorEspecialidad(idEspecialidad);
+                }
+                else
+                {
+                    CbCitaMedico.ItemsSource = null;
+                }
+                CbCitaMedico.SelectedIndex = -1;
+            }
+            catch (System.Exception ex)
+            {
+                MessageBox.Show($"Error al filtrar médicos por especialidad: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void BtnCancelarCitaForm_Click(object sender, RoutedEventArgs e)
         {
             CargarListadoCitas();
@@ -99,6 +125,7 @@ namespace CLINICA_CITAS.Views
         {
             // Validaciones
             if (CbCitaPaciente.SelectedValue == null ||
+                CbCitaEspecialidad.SelectedValue == null ||
                 CbCitaMedico.SelectedValue == null ||
                 DpCitaFecha.SelectedDate == null ||
                 string.IsNullOrWhiteSpace(TxtCitaHora.Text) ||
@@ -119,11 +146,12 @@ namespace CLINICA_CITAS.Views
                 var cita = new Cita();
                 cita.ID_Paciente = Convert.ToInt32(CbCitaPaciente.SelectedValue);
                 cita.ID_Medico = Convert.ToInt32(CbCitaMedico.SelectedValue);
+                cita.ID_Especialidad = Convert.ToInt32(CbCitaEspecialidad.SelectedValue);
                 cita.HoraInicio = DpCitaFecha.SelectedDate.Value.Date.Add(hora);
                 cita.HoraFin = cita.HoraInicio.AddMinutes(30); // Cita dura 30 mins por defecto
                 cita.Motivo = TxtCitaMotivo.Text.Trim();
                 cita.Estado = "Pendiente";
-                cita.Id_Usuario = _usuario.ID_Usuario;
+                cita.Id_Usuario = _usuario.ID;
 
                 _citaRepository.CrearCita(cita);
 

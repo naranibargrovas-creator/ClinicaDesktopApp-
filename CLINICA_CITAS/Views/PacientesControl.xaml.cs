@@ -8,17 +8,17 @@ namespace CLINICA_CITAS.Views
     public partial class PacientesControl : UserControl
     {
         private readonly PacienteRepository _pacienteRepository;
-        private readonly Usuario _usuario;
+        private readonly UsuarioAutenticado _usuario;
         private Paciente? _selectedPaciente;
 
         public PacientesControl()
         {
             InitializeComponent();
             _pacienteRepository = new PacienteRepository();
-            _usuario = new Usuario();
+            _usuario = new UsuarioAutenticado();
         }
 
-        public PacientesControl(Usuario usuario, PacienteRepository pacienteRepository)
+        public PacientesControl(UsuarioAutenticado usuario, PacienteRepository pacienteRepository)
         {
             InitializeComponent();
             _usuario = usuario;

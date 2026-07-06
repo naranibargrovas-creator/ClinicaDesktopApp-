@@ -7,16 +7,16 @@ namespace CLINICA_CITAS.Views
     public partial class DashboardControl : UserControl
     {
         private readonly CitaRepository _citaRepository;
-        private readonly Usuario _usuario;
+        private readonly UsuarioAutenticado _usuario;
 
         public DashboardControl()
         {
             InitializeComponent();
             _citaRepository = new CitaRepository();
-            _usuario = new Usuario { Nombre = "Usuario" };
+            _usuario = new UsuarioAutenticado { Nombre = "Usuario" };
         }
 
-        public DashboardControl(Usuario usuario, CitaRepository citaRepository)
+        public DashboardControl(UsuarioAutenticado usuario, CitaRepository citaRepository)
         {
             InitializeComponent();
             _usuario = usuario;

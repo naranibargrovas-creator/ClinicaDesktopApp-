@@ -7,13 +7,47 @@ namespace CLINICA_CITAS.Database
 {
     public class MedicoRepository
     {
+        public Medico? ValidarCredenciales(string apodo, string contrasena)
+        {
+            using (var connection = new SqlConnection(DbConfig.ConnectionString))
+            {
+                connection.Open();
+                string query = @"SELECT ID_Medico, Nombre, Apellidos, Correo, Direccion, 
+                                        FechaNacimiento, Colegiatura, DisponibilidadHorario, 
+                                        Apodo, ContrasenaHash, TipoDoc, NumeroDoc
+                                 FROM Medico 
+                                 WHERE Apodo = @Apodo AND ContrasenaHash = @Contrasena";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Apodo", apodo);
+                    command.Parameters.AddWithValue("@Contrasena", contrasena);
+
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            return MapearMedicoSimple(reader);
+                        }
+                    }
+                }
+            }
+            return null;
+        }
+
         public List<Medico> ListarTodos()
         {
             var lista = new List<Medico>();
             using (var connection = new SqlConnection(DbConfig.ConnectionString))
             {
                 connection.Open();
-                string query = "SELECT * FROM Medico ORDER BY Apellidos, Nombre";
+                string query = @"SELECT m.*, 
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me 
+                                         INNER JOIN Especialidad e ON me.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me.ID_Medico = m.ID_Medico) AS Especialidades
+                                 FROM Medico m 
+                                 ORDER BY m.Apellidos, m.Nombre";
                 using (var command = new SqlCommand(query, connection))
                 {
                     using (var reader = command.ExecuteReader())
@@ -34,12 +68,17 @@ namespace CLINICA_CITAS.Database
             using (var connection = new SqlConnection(DbConfig.ConnectionString))
             {
                 connection.Open();
-                string query = @"SELECT * FROM Medico 
-                                 WHERE Nombre LIKE @Filtro 
-                                    OR Apellidos LIKE @Filtro 
-                                    OR Colegiatura LIKE @Filtro 
-                                    OR NumeroDoc LIKE @Filtro 
-                                 ORDER BY Apellidos, Nombre";
+                string query = @"SELECT m.*, 
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me 
+                                         INNER JOIN Especialidad e ON me.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me.ID_Medico = m.ID_Medico) AS Especialidades
+                                 FROM Medico m 
+                                 WHERE m.Nombre LIKE @Filtro 
+                                    OR m.Apellidos LIKE @Filtro 
+                                    OR m.Colegiatura LIKE @Filtro 
+                                    OR m.NumeroDoc LIKE @Filtro 
+                                 ORDER BY m.Apellidos, m.Nombre";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@Filtro", $"%{filtro}%");
@@ -126,7 +165,57 @@ namespace CLINICA_CITAS.Database
             command.Parameters.AddWithValue("@NumeroDoc", m.NumeroDoc);
         }
 
+        public List<Medico> ListarPorEspecialidad(int idEspecialidad)
+        {
+            var lista = new List<Medico>();
+            using (var connection = new SqlConnection(DbConfig.ConnectionString))
+            {
+                connection.Open();
+                string query = @"SELECT m.*, 
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me2 
+                                         INNER JOIN Especialidad e ON me2.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me2.ID_Medico = m.ID_Medico) AS Especialidades
+                                 FROM Medico m
+                                 INNER JOIN MedicoEspecialidad me ON m.ID_Medico = me.ID_Medico
+                                 WHERE me.ID_Especialidad = @ID_Especialidad
+                                 ORDER BY m.Apellidos, m.Nombre";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID_Especialidad", idEspecialidad);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(MapearMedico(reader));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+
         private Medico MapearMedico(SqlDataReader reader)
+        {
+            return new Medico
+            {
+                ID_Medico = Convert.ToInt32(reader["ID_Medico"]),
+                Nombre = reader["Nombre"].ToString() ?? string.Empty,
+                Apellidos = reader["Apellidos"].ToString() ?? string.Empty,
+                Correo = reader["Correo"].ToString() ?? string.Empty,
+                Direccion = reader["Direccion"].ToString() ?? string.Empty,
+                FechaNacimiento = reader["FechaNacimiento"] == DBNull.Value ? null : (DateTime?)Convert.ToDateTime(reader["FechaNacimiento"]),
+                Colegiatura = reader["Colegiatura"].ToString() ?? string.Empty,
+                DisponibilidadHorario = reader["DisponibilidadHorario"].ToString() ?? string.Empty,
+                Apodo = reader["Apodo"].ToString() ?? string.Empty,
+                ContrasenaHash = reader["ContrasenaHash"].ToString() ?? string.Empty,
+                TipoDoc = reader["TipoDoc"].ToString() ?? string.Empty,
+                NumeroDoc = reader["NumeroDoc"].ToString() ?? string.Empty,
+                Especialidades = reader["Especialidades"] == DBNull.Value ? string.Empty : reader["Especialidades"].ToString() ?? string.Empty
+            };
+        }
+
+        private Medico MapearMedicoSimple(SqlDataReader reader)
         {
             return new Medico
             {

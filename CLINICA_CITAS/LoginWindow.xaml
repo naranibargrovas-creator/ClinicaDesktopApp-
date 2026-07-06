@@ -138,10 +138,10 @@
                                        Style="{StaticResource HeaderTextStyle}"/>
 
                             <!-- Email Field -->
-                            <TextBlock Text="Correo" 
+                            <TextBlock Text="Usuario / Apodo" 
                                        Style="{StaticResource LabelTextStyle}"/>
                             <TextBox x:Name="TxtCorreo"
-                                     Tag="Ingresa tu correo"
+                                     Tag="Ingresa tu correo o apodo"
                                      Style="{StaticResource ModernTextBox}"
                                      Margin="0,0,0,20"/>
 

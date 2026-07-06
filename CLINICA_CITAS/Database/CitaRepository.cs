@@ -16,11 +16,17 @@ namespace CLINICA_CITAS.Database
                 string query = @"SELECT c.*, 
                                         p.Nombre AS PacienteNombre, p.Apellidos AS PacienteApellidos,
                                         m.Nombre AS MedicoNombre, m.Apellidos AS MedicoApellidos,
-                                        u.Nombre AS UsuarioNombre, u.Apellidos AS UsuarioApellidos
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me 
+                                         INNER JOIN Especialidad e ON me.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me.ID_Medico = m.ID_Medico) AS MedicoEspecialidades,
+                                        u.Nombre AS UsuarioNombre, u.Apellidos AS UsuarioApellidos,
+                                        esp.NombreEspecialidad AS EspecialidadNombre
                                  FROM Cita c
                                  INNER JOIN Paciente p ON c.ID_Paciente = p.ID_Paciente
                                  INNER JOIN Medico m ON c.ID_Medico = m.ID_Medico
                                  INNER JOIN Usuario u ON c.Id_Usuario = u.ID_Usuario
+                                 LEFT JOIN Especialidad esp ON c.ID_Especialidad = esp.ID_Especialidad
                                  ORDER BY c.HoraInicio DESC";
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -45,16 +51,23 @@ namespace CLINICA_CITAS.Database
                 string query = @"SELECT c.*, 
                                         p.Nombre AS PacienteNombre, p.Apellidos AS PacienteApellidos,
                                         m.Nombre AS MedicoNombre, m.Apellidos AS MedicoApellidos,
-                                        u.Nombre AS UsuarioNombre, u.Apellidos AS UsuarioApellidos
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me 
+                                         INNER JOIN Especialidad e ON me.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me.ID_Medico = m.ID_Medico) AS MedicoEspecialidades,
+                                        u.Nombre AS UsuarioNombre, u.Apellidos AS UsuarioApellidos,
+                                        esp.NombreEspecialidad AS EspecialidadNombre
                                  FROM Cita c
                                  INNER JOIN Paciente p ON c.ID_Paciente = p.ID_Paciente
                                  INNER JOIN Medico m ON c.ID_Medico = m.ID_Medico
                                  INNER JOIN Usuario u ON c.Id_Usuario = u.ID_Usuario
+                                 LEFT JOIN Especialidad esp ON c.ID_Especialidad = esp.ID_Especialidad
                                  WHERE p.Nombre LIKE @Filtro 
                                     OR p.Apellidos LIKE @Filtro 
                                     OR m.Nombre LIKE @Filtro 
                                     OR m.Apellidos LIKE @Filtro
                                     OR c.Estado LIKE @Filtro
+                                    OR esp.NombreEspecialidad LIKE @Filtro
                                  ORDER BY c.HoraInicio DESC";
                 using (var command = new SqlCommand(query, connection))
                 {
@@ -76,8 +89,8 @@ namespace CLINICA_CITAS.Database
             using (var connection = new SqlConnection(DbConfig.ConnectionString))
             {
                 connection.Open();
-                string query = @"INSERT INTO Cita (HoraInicio, HoraFin, Motivo, Estado, ID_Paciente, ID_Medico, Id_Usuario) 
-                                 VALUES (@HoraInicio, @HoraFin, @Motivo, @Estado, @ID_Paciente, @ID_Medico, @Id_Usuario)";
+                string query = @"INSERT INTO Cita (HoraInicio, HoraFin, Motivo, Estado, ID_Paciente, ID_Medico, Id_Usuario, ID_Especialidad) 
+                                 VALUES (@HoraInicio, @HoraFin, @Motivo, @Estado, @ID_Paciente, @ID_Medico, @Id_Usuario, @ID_Especialidad)";
                 using (var command = new SqlCommand(query, connection))
                 {
                     command.Parameters.AddWithValue("@HoraInicio", c.HoraInicio);
@@ -87,6 +100,7 @@ namespace CLINICA_CITAS.Database
                     command.Parameters.AddWithValue("@ID_Paciente", c.ID_Paciente);
                     command.Parameters.AddWithValue("@ID_Medico", c.ID_Medico);
                     command.Parameters.AddWithValue("@Id_Usuario", c.Id_Usuario);
+                    command.Parameters.AddWithValue("@ID_Especialidad", c.ID_Especialidad.HasValue ? (object)c.ID_Especialidad.Value : DBNull.Value);
                     command.ExecuteNonQuery();
                 }
             }
@@ -102,6 +116,25 @@ namespace CLINICA_CITAS.Database
                 {
                     command.Parameters.AddWithValue("@Estado", estado);
                     command.Parameters.AddWithValue("@ID_Cita", idCita);
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
+
+        public void ActualizarEspecialidadesCitasExistentes()
+        {
+            using (var connection = new SqlConnection(DbConfig.ConnectionString))
+            {
+                connection.Open();
+                string query = @"UPDATE Cita 
+                                 SET ID_Especialidad = (
+                                     SELECT TOP 1 me.ID_Especialidad 
+                                     FROM MedicoEspecialidad me 
+                                     WHERE me.ID_Medico = Cita.ID_Medico
+                                 )
+                                 WHERE ID_Especialidad IS NULL";
+                using (var command = new SqlCommand(query, connection))
+                {
                     command.ExecuteNonQuery();
                 }
             }
@@ -155,6 +188,7 @@ namespace CLINICA_CITAS.Database
 
         private Cita MapearCita(SqlDataReader reader)
         {
+            string especialidades = reader["MedicoEspecialidades"] == DBNull.Value ? string.Empty : reader["MedicoEspecialidades"].ToString() ?? string.Empty;
             return new Cita
             {
                 ID_Cita = Convert.ToInt32(reader["ID_Cita"]),
@@ -165,9 +199,13 @@ namespace CLINICA_CITAS.Database
                 ID_Paciente = Convert.ToInt32(reader["ID_Paciente"]),
                 ID_Medico = Convert.ToInt32(reader["ID_Medico"]),
                 Id_Usuario = Convert.ToInt32(reader["Id_Usuario"]),
+                ID_Especialidad = reader["ID_Especialidad"] == DBNull.Value ? null : (int?)Convert.ToInt32(reader["ID_Especialidad"]),
                 PacienteNombreCompleto = $"{reader["PacienteNombre"]} {reader["PacienteApellidos"]}",
-                MedicoNombreCompleto = $"{reader["MedicoNombre"]} {reader["MedicoApellidos"]}",
-                UsuarioNombreCompleto = $"{reader["UsuarioNombre"]} {reader["UsuarioApellidos"]}"
+                MedicoNombreCompleto = string.IsNullOrEmpty(especialidades)
+                    ? $"{reader["MedicoNombre"]} {reader["MedicoApellidos"]}"
+                    : $"{reader["MedicoNombre"]} {reader["MedicoApellidos"]} ({especialidades})",
+                UsuarioNombreCompleto = $"{reader["UsuarioNombre"]} {reader["UsuarioApellidos"]}",
+                EspecialidadNombre = reader["EspecialidadNombre"] == DBNull.Value ? string.Empty : reader["EspecialidadNombre"].ToString() ?? string.Empty
             };
         }
     }

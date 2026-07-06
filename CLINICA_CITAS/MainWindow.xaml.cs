@@ -13,7 +13,7 @@ namespace CLINICA_CITAS
     /// </summary>
     public partial class MainWindow : Window
     {
-        private readonly Usuario _usuario;
+        private readonly UsuarioAutenticado _usuario;
         
         // Repositorios
         private readonly PacienteRepository _pacienteRepository;
@@ -32,7 +32,7 @@ namespace CLINICA_CITAS
         public MainWindow()
         {
             InitializeComponent();
-            _usuario = new Usuario { ID_Usuario = 1, Nombre = "Usuario", Apellidos = "Demo", Rol = "Administrador" };
+            _usuario = new UsuarioAutenticado { ID = 1, Nombre = "Usuario", Apellidos = "Demo", Rol = "Administrador" };
             
             _pacienteRepository = new PacienteRepository();
             _medicoRepository = new MedicoRepository();
@@ -43,7 +43,7 @@ namespace CLINICA_CITAS
         }
 
         // Constructor principal que recibe al usuario autenticado
-        public MainWindow(Usuario usuario)
+        public MainWindow(UsuarioAutenticado usuario)
         {
             InitializeComponent();
             _usuario = usuario;
