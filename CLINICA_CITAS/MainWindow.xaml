@@ -130,9 +130,9 @@
 
                     <!-- Sidebar Card -->
                     <Border Grid.Column="0" 
-                            Background="#FFFFFF" 
+                            Background="#2D3748" 
                             CornerRadius="12" 
-                            BorderBrush="#E5E7EB" 
+                            BorderBrush="#4A5568" 
                             BorderThickness="1"
                             
                             Margin="0,0,16,0">
@@ -145,50 +145,58 @@
 
                             <!-- Profile Greeting -->
                             <StackPanel Grid.Row="0" HorizontalAlignment="Center" Margin="0,16,0,0">
-                                <Border Background="#E0F2FE" CornerRadius="12" Padding="8,4,8,4" Margin="0,6,0,0" HorizontalAlignment="Center">
-                                    <TextBlock x:Name="TxtUserRol" Text="Administrador" FontSize="11" FontWeight="Medium" Foreground="#0369A1"/>
+                                <Border Background="#4A5568" CornerRadius="12" Padding="8,4,8,4" Margin="0,6,0,0" HorizontalAlignment="Center">
+                                    <TextBlock x:Name="TxtUserRol" Text="Administrador" FontSize="11" FontWeight="Medium" Foreground="#FFFFFF"/>
                                 </Border>
                             </StackPanel>
                             <!-- Navigation List -->
                             <StackPanel Grid.Row="1" Margin="0,24,0,0" VerticalAlignment="Top">
-                                <TextBlock Text="Menú del Sistema" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0,0,0,8"/>
+                                <TextBlock Text="Menú del Sistema" FontSize="11" FontWeight="Bold" Foreground="#A0AEC0" Margin="0,0,0,8"/>
                                 
-                                <Border x:Name="BorderMenuInicio" Background="#F1F5F9" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuInicio_Click">
-                                    <TextBlock x:Name="TxtMenuInicio" Text="🏠 Inicio" FontSize="13" FontWeight="SemiBold" Foreground="#0B72E7"/>
+                                <Border x:Name="BorderMenuInicio" Background="#4A5568" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuInicio_Click">
+                                    <TextBlock x:Name="TxtMenuInicio" Text="🏠 Inicio" FontSize="13" FontWeight="SemiBold" Foreground="#FFFFFF"/>
                                 </Border>
                                 
                                 <Border x:Name="BorderMenuPacientes" Background="Transparent" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuPacientes_Click">
-                                    <TextBlock x:Name="TxtMenuPacientes" Text="👤 Gestión de Pacientes" FontSize="13" FontWeight="Medium" Foreground="#475569"/>
+                                    <TextBlock x:Name="TxtMenuPacientes" Text="👤 Gestión de Pacientes" FontSize="13" FontWeight="Medium" Foreground="#E2E8F0"/>
                                 </Border>
 
                                 <Border x:Name="BorderMenuMedicos" Background="Transparent" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuMedicos_Click">
-                                    <TextBlock x:Name="TxtMenuMedicos" Text="⚕️ Gestión de Médicos" FontSize="13" FontWeight="Medium" Foreground="#475569"/>
+                                    <TextBlock x:Name="TxtMenuMedicos" Text="⚕️ Gestión de Médicos" FontSize="13" FontWeight="Medium" Foreground="#E2E8F0"/>
                                 </Border>
 
                                 <Border x:Name="BorderMenuCitas" Background="Transparent" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuCitas_Click">
-                                    <TextBlock x:Name="TxtMenuCitas" Text="📅 Gestión de Citas" FontSize="13" FontWeight="Medium" Foreground="#475569"/>
+                                    <TextBlock x:Name="TxtMenuCitas" Text="📅 Gestión de Citas" FontSize="13" FontWeight="Medium" Foreground="#E2E8F0"/>
                                 </Border>
 
                                 <Border x:Name="BorderMenuUsuarios" Background="Transparent" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuUsuarios_Click">
-                                    <TextBlock x:Name="TxtMenuUsuarios" Text="👥 Administrar Usuarios" FontSize="13" FontWeight="Medium" Foreground="#475569"/>
+                                    <TextBlock x:Name="TxtMenuUsuarios" Text="👥 Administrar Usuarios" FontSize="13" FontWeight="Medium" Foreground="#E2E8F0"/>
+                                </Border>
+
+                                <Border x:Name="BorderMenuHistorial" Background="Transparent" CornerRadius="6" Padding="8" Margin="0,0,0,4" Cursor="Hand" MouseLeftButtonDown="MenuHistorial_Click">
+                                    <TextBlock x:Name="TxtMenuHistorial" Text="� Historial Clínico" FontSize="13" FontWeight="Medium" Foreground="#E2E8F0"/>
                                 </Border>
                                 
-                                <TextBlock Text="🔒 Próximos Módulos" FontSize="11" FontWeight="Bold" Foreground="#94A3B8" Margin="0,16,0,8"/>
-                                <TextBlock Text="🛡️ Proveedores de Seguros" FontSize="12" Foreground="#94A3B8" Margin="8,4,0,4"/>
-                                <TextBlock Text="📋 Historial Clínico" FontSize="12" Foreground="#94A3B8" Margin="8,4,0,4"/>
-                                <TextBlock Text="📦 Almacén e Insumos" FontSize="12" Foreground="#94A3B8" Margin="8,4,0,4"/>
+                                <TextBlock Text="� Próximos Módulos" FontSize="11" FontWeight="Bold" Foreground="#A0AEC0" Margin="0,16,0,8"/>
+                                <TextBlock Text="�️ Proveedores de Seguros" FontSize="12" Foreground="#718096" Margin="8,4,0,4"/>
+                                <TextBlock Text="📦 Almacén e Insumos" FontSize="12" Foreground="#718096" Margin="8,4,0,4"/>
                             </StackPanel>
 
                             <!-- Logout Button -->
-                            <Button Grid.Row="2" 
-                                    Content="Cerrar Sesión" 
-                                    Background="Transparent" 
-                                    BorderThickness="0" 
-                                    Foreground="#EF4444" 
-                                    FontWeight="SemiBold"
+                            <Border Grid.Row="2" 
+                                    Background="#EF4444" 
+                                    CornerRadius="6"
                                     Cursor="Hand"
-                                    Click="BtnLogout_Click"
-                                    Margin="0,0,0,8"/>
+                                    Margin="0,0,0,8">
+                                <Button Content="Cerrar Sesión" 
+                                        Background="Transparent" 
+                                        BorderThickness="0" 
+                                        Foreground="#FFFFFF" 
+                                        FontWeight="SemiBold"
+                                        Cursor="Hand"
+                                        Click="BtnLogout_Click"
+                                        Padding="12,8"/>
+                            </Border>
                         </Grid>
                     </Border>
 

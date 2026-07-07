@@ -84,6 +84,43 @@ namespace CLINICA_CITAS.Database
             return lista;
         }
 
+        public List<Cita> ListarPorPaciente(int idPaciente)
+        {
+            var lista = new List<Cita>();
+            using (var connection = new SqlConnection(DbConfig.ConnectionString))
+            {
+                connection.Open();
+                string query = @"SELECT c.*, 
+                                        p.Nombre AS PacienteNombre, p.Apellidos AS PacienteApellidos,
+                                        m.Nombre AS MedicoNombre, m.Apellidos AS MedicoApellidos,
+                                        (SELECT STRING_AGG(e.NombreEspecialidad, ', ') 
+                                         FROM MedicoEspecialidad me 
+                                         INNER JOIN Especialidad e ON me.ID_Especialidad = e.ID_Especialidad 
+                                         WHERE me.ID_Medico = m.ID_Medico) AS MedicoEspecialidades,
+                                        u.Nombre AS UsuarioNombre, u.Apellidos AS UsuarioApellidos,
+                                        esp.NombreEspecialidad AS EspecialidadNombre
+                                 FROM Cita c
+                                 INNER JOIN Paciente p ON c.ID_Paciente = p.ID_Paciente
+                                 INNER JOIN Medico m ON c.ID_Medico = m.ID_Medico
+                                 INNER JOIN Usuario u ON c.Id_Usuario = u.ID_Usuario
+                                 LEFT JOIN Especialidad esp ON c.ID_Especialidad = esp.ID_Especialidad
+                                 WHERE c.ID_Paciente = @ID_Paciente
+                                 ORDER BY c.HoraInicio DESC";
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@ID_Paciente", idPaciente);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            lista.Add(MapearCita(reader));
+                        }
+                    }
+                }
+            }
+            return lista;
+        }
+
         public void CrearCita(Cita c)
         {
             using (var connection = new SqlConnection(DbConfig.ConnectionString))

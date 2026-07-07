@@ -20,6 +20,7 @@ namespace CLINICA_CITAS
         private readonly MedicoRepository _medicoRepository;
         private readonly CitaRepository _citaRepository;
         private readonly UsuarioRepository _usuarioRepository;
+        private readonly HistorialClinicoRepository _historialClinicoRepository;
 
         // Controles de vista
         private DashboardControl? _dashboardControl;
@@ -27,6 +28,7 @@ namespace CLINICA_CITAS
         private MedicosControl? _medicosControl;
         private CitasControl? _citasControl;
         private UsuariosControl? _usuariosControl;
+        private HistorialClinicoControl? _historialClinicoControl;
 
         // Constructor para diseño de WPF y fallback
         public MainWindow()
@@ -38,6 +40,7 @@ namespace CLINICA_CITAS
             _medicoRepository = new MedicoRepository();
             _citaRepository = new CitaRepository();
             _usuarioRepository = new UsuarioRepository();
+            _historialClinicoRepository = new HistorialClinicoRepository();
             
             InicializarComponentesPersonalizados();
         }
@@ -52,6 +55,7 @@ namespace CLINICA_CITAS
             _medicoRepository = new MedicoRepository();
             _citaRepository = new CitaRepository();
             _usuarioRepository = new UsuarioRepository();
+            _historialClinicoRepository = new HistorialClinicoRepository();
             
             InicializarComponentesPersonalizados();
         }
@@ -80,9 +84,10 @@ namespace CLINICA_CITAS
             BorderMenuMedicos.Background = Brushes.Transparent;
             BorderMenuCitas.Background = Brushes.Transparent;
             BorderMenuUsuarios.Background = Brushes.Transparent;
+            BorderMenuHistorial.Background = Brushes.Transparent;
 
             // Restablecer estilos de la barra lateral (Textos)
-            var normalBrush = new SolidColorBrush(Color.FromRgb(71, 85, 105));
+            var normalBrush = new SolidColorBrush(Color.FromRgb(226, 232, 240));
             TxtMenuInicio.Foreground = normalBrush;
             TxtMenuInicio.FontWeight = FontWeights.Medium;
             TxtMenuPacientes.Foreground = normalBrush;
@@ -93,10 +98,12 @@ namespace CLINICA_CITAS
             TxtMenuCitas.FontWeight = FontWeights.Medium;
             TxtMenuUsuarios.Foreground = normalBrush;
             TxtMenuUsuarios.FontWeight = FontWeights.Medium;
+            TxtMenuHistorial.Foreground = normalBrush;
+            TxtMenuHistorial.FontWeight = FontWeights.Medium;
 
             // Aplicar estilo al menú activo
-            activeMenuBorder.Background = new SolidColorBrush(Color.FromRgb(241, 245, 249));
-            activeMenuText.Foreground = new SolidColorBrush(Color.FromRgb(11, 114, 231));
+            activeMenuBorder.Background = new SolidColorBrush(Color.FromRgb(74, 85, 104));
+            activeMenuText.Foreground = Brushes.White;
             activeMenuText.FontWeight = FontWeights.SemiBold;
         }
 
@@ -123,6 +130,11 @@ namespace CLINICA_CITAS
         private void MenuUsuarios_Click(object sender, MouseButtonEventArgs e)
         {
             MostrarUsuarios();
+        }
+
+        private void MenuHistorial_Click(object sender, MouseButtonEventArgs e)
+        {
+            MostrarHistorial();
         }
 
         #endregion
@@ -207,6 +219,22 @@ namespace CLINICA_CITAS
             }
 
             MainContent.Content = _usuariosControl;
+        }
+
+        private void MostrarHistorial()
+        {
+            SetActiveMenuStyle(BorderMenuHistorial, TxtMenuHistorial);
+
+            if (_historialClinicoControl == null)
+            {
+                _historialClinicoControl = new HistorialClinicoControl(_usuario, _historialClinicoRepository, _pacienteRepository, _citaRepository);
+            }
+            else
+            {
+                _historialClinicoControl.CargarListadoHistorial();
+            }
+
+            MainContent.Content = _historialClinicoControl;
         }
 
         #endregion

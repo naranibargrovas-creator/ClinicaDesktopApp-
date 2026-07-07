@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET10_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NET10_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
 E:\Desarrollo de Escritorio\Clinica_Clon\ClinicaDesktopApp-\CLINICA_CITAS\App.xaml
-8-777190717
+9-1091193228
 
-282124089877
+311758342512
 220820822078
-LoginWindow.xaml;MainWindow.xaml;Themes\Styles.xaml;Views\CitasControl.xaml;Views\DashboardControl.xaml;Views\MedicosControl.xaml;Views\PacientesControl.xaml;Views\UsuariosControl.xaml;
+LoginWindow.xaml;MainWindow.xaml;Themes\Styles.xaml;Views\CitasControl.xaml;Views\DashboardControl.xaml;Views\HistorialClinicoControl.xaml;Views\MedicosControl.xaml;Views\PacientesControl.xaml;Views\UsuariosControl.xaml;
 
 False
 
