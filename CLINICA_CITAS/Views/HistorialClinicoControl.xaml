@@ -152,7 +152,8 @@
                                           Padding="10,2"
                                           FontSize="15"
                                           VerticalContentAlignment="Center"
-                                          CaretBrush="#0B72E7"/>
+                                          CaretBrush="#0B72E7"
+                                         MaxLength="5"/>
                             </StackPanel>
 
                             <!-- Altura -->
@@ -168,7 +169,8 @@
                                           Padding="10,2"
                                           FontSize="15"
                                           VerticalContentAlignment="Center"
-                                          CaretBrush="#0B72E7"/>
+                                          CaretBrush="#0B72E7"
+                                         MaxLength="5"/>
                             </StackPanel>
 
                             <!-- Presión Arterial -->
@@ -184,7 +186,8 @@
                                           Padding="10,2"
                                           FontSize="15"
                                           VerticalContentAlignment="Center"
-                                          CaretBrush="#0B72E7"/>
+                                          CaretBrush="#0B72E7"
+                                         MaxLength="16"/>
                             </StackPanel>
 
                             <!-- Antecedentes -->
@@ -200,7 +203,8 @@
                                           Padding="10,2"
                                           FontSize="15"
                                           VerticalContentAlignment="Center"
-                                          CaretBrush="#0B72E7"/>
+                                          CaretBrush="#0B72E7"
+                                         MaxLength="50"/>
                             </StackPanel>
 
                             <!-- Observaciones -->
@@ -219,7 +223,8 @@
                                           Padding="10,8"
                                           FontSize="15"
                                           VerticalContentAlignment="Top"
-                                          CaretBrush="#0B72E7"/>
+                                          CaretBrush="#0B72E7"
+                                         MaxLength="100"/>
                             </StackPanel>
                         </Grid>
                     </ScrollViewer>

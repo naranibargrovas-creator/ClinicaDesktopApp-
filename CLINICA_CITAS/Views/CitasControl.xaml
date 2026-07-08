@@ -58,7 +58,6 @@
                         <DataGrid.Columns>
                             <DataGridTextColumn Header="Paciente" Binding="{Binding PacienteNombreCompleto}" Width="160"/>
                             <DataGridTextColumn Header="Médico" Binding="{Binding MedicoNombreCompleto}" Width="160"/>
-                            <DataGridTextColumn Header="Especialidad" Binding="{Binding EspecialidadNombre}" Width="120"/>
                             <DataGridTextColumn Header="Fecha / Hora" Binding="{Binding HoraInicio, StringFormat={}{0:dd/MM/yyyy HH:mm}}" Width="120"/>
                             <DataGridTextColumn Header="Motivo" Binding="{Binding Motivo}" Width="180"/>
                             <DataGridTextColumn Header="Estado" Binding="{Binding Estado}" Width="100"/>
@@ -96,13 +95,13 @@
                         <!-- Especialidad -->
                         <StackPanel Margin="0,0,0,16">
                             <TextBlock Text="Especialidad *" Style="{StaticResource LabelTextStyle}"/>
-                            <ComboBox x:Name="CbCitaEspecialidad" Height="40" DisplayMemberPath="NombreEspecialidad" SelectedValuePath="ID_Especialidad" VerticalContentAlignment="Center" SelectionChanged="CbCitaEspecialidad_SelectionChanged"/>
+                            <ComboBox x:Name="CbCitaEspecialidad" Height="40" DisplayMemberPath="Nombre" SelectedValuePath="ID_Especialidad" VerticalContentAlignment="Center" SelectionChanged="CbCitaEspecialidad_SelectionChanged"/>
                         </StackPanel>
 
                         <!-- Médico -->
                         <StackPanel Margin="0,0,0,16">
                             <TextBlock Text="Médico *" Style="{StaticResource LabelTextStyle}"/>
-                            <ComboBox x:Name="CbCitaMedico" Height="40" DisplayMemberPath="NombreConEspecialidad" SelectedValuePath="ID_Medico" VerticalContentAlignment="Center"/>
+                            <ComboBox x:Name="CbCitaMedico" Height="40" DisplayMemberPath="NombreCompleto" SelectedValuePath="ID_Medico" VerticalContentAlignment="Center"/>
                         </StackPanel>
 
                         <!-- Date and time -->
@@ -130,7 +129,8 @@
                                      Padding="10,2"
                                      FontSize="15"
                                      VerticalContentAlignment="Center"
-                                     CaretBrush="#0B72E7"/>
+                                     CaretBrush="#0B72E7"
+                                     MaxLength="20"/>
                             </StackPanel>
                         </Grid>
 
@@ -148,7 +148,8 @@
                                  Padding="10,2"
                                  FontSize="15"
                                  VerticalContentAlignment="Center"
-                                 CaretBrush="#0B72E7"/>
+                                 CaretBrush="#0B72E7"
+                                 MaxLength="200"/>
                         </StackPanel>
                     </StackPanel>
 

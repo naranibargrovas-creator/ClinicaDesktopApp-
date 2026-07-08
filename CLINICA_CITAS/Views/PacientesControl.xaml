@@ -116,7 +116,8 @@
                                                  Padding="10,2"
                                                  FontSize="15"
                                                  VerticalContentAlignment="Center"
-                                                 CaretBrush="#0B72E7"/>
+                                                 CaretBrush="#0B72E7"
+                                                 MaxLength="20"/>
                             </StackPanel>
                             <StackPanel Grid.Row="0" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Apellidos *" Style="{StaticResource LabelTextStyle}"/>
@@ -131,7 +132,8 @@
                                          Padding="10,2"
                                          FontSize="15"
                                          VerticalContentAlignment="Center"
-                                         CaretBrush="#0B72E7"/> 
+                                         CaretBrush="#0B72E7"
+                                         MaxLength="50"/> 
                             </StackPanel>
 
                             <StackPanel Grid.Row="1" Grid.Column="0" Margin="0,0,8,12">
@@ -155,7 +157,8 @@
                                          Padding="10,2"
                                          FontSize="15"
                                          VerticalContentAlignment="Center"
-                                         CaretBrush="#0B72E7"/>     
+                                         CaretBrush="#0B72E7"
+                                         MaxLength="8"/>     
                             </StackPanel>
 
                             <StackPanel Grid.Row="2" Grid.Column="0" Margin="0,0,8,12">
@@ -183,7 +186,8 @@
                                          Padding="10,2"
                                          FontSize="15"
                                          VerticalContentAlignment="Center"
-                                         CaretBrush="#0B72E7"/> 
+                                         CaretBrush="#0B72E7"
+                                         MaxLength="9"/> 
                             </StackPanel>
                             <StackPanel Grid.Row="3" Grid.Column="1" Margin="8,0,0,12">
                                 <TextBlock Text="Correo Electrónico" Style="{StaticResource LabelTextStyle}"/>
@@ -198,7 +202,8 @@
                                          Padding="10,2"
                                          FontSize="15"
                                          VerticalContentAlignment="Center"
-                                         CaretBrush="#0B72E7"/> 
+                                         CaretBrush="#0B72E7"
+                                         MaxLength="50"/> 
                             </StackPanel>
 
                             <StackPanel Grid.Row="4" Grid.Column="0" Margin="0,0,8,12">
@@ -214,7 +219,8 @@
                                          Padding="10,2"
                                          FontSize="15"
                                          VerticalContentAlignment="Center"
-                                         CaretBrush="#0B72E7"/>
+                                         CaretBrush="#0B72E7"
+                                         MaxLength="30"/>
                             </StackPanel>
                             <StackPanel Grid.Row="4" Grid.Column="1" Margin="8,16,0,12" VerticalAlignment="Center">
                                 <CheckBox x:Name="ChkPacEstado" Content="Paciente Activo (En atención)" IsChecked="True" FontSize="14" FontWeight="SemiBold"/>
